@@ -1,0 +1,52 @@
+﻿@model virusscan.Models.Employee
+@{
+    ViewBag.Title = "Index";
+}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<h2>Index</h2>
+<input type="file" id="fileUpload"  />
+<input type="button" value="submit" id="btnSubmit" />
+
+<script type="text/javascript">
+    $("#btnSubmit").click(function () {
+        debugger;
+        var fileUpload = $("#fileUpload").get(0);
+            var files = fileUpload.files;
+            var fileData = new FormData();  
+            for (var i = 0; i < files.length; i++) {  
+                fileData.append(files[i].name, files[i]);  
+            }
+            //var obj = {};
+            //fileData.append("FileName", $("#txtFirstName").val());
+            //fileData.append("LastName", $("#txtLastName").val());
+            //fileData.append("MobileNo", $("#txtMobileNo").val());
+            //fileData.append("EmailId", $("#txtEmailId").val());
+            //fileData.append("Address", $("#txtAddress").val());
+            //fileData.append("Pin", $("#txtPin").val());
+            //fileData.append("PostalNo", $("#txtPostalNo").val());
+            //fileData.append("TelephoneNo", $("#txtTelephoneNo").val());
+            //fileData.append("Command", 'Insert');
+            $.ajax({
+                url: '/Default/Index',
+                data: fileData,
+                type: 'POST',
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                    success: function (data) {
+                        //Show popup
+                        if (data == 'Success')
+                            window.location.href = '@Url.Action("Index","Home")'
+                        else
+                        alert(data);
+
+                    }
+                });
+            //}
+            //else {
+            //    alert('Your record is safe now.')
+            //}
+
+    });
+</script>
+
